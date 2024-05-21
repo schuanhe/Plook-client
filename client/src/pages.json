@@ -3,6 +3,14 @@
     //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 
     {
+      "path": "components/PlookChat/Chat",
+      "style": {
+        "navigationBarTitleText": "聊天室",
+        "enablePullDownRefresh": false
+      }
+    },
+
+    {
       "path": "pages/PlookRoom/PlookRoom",
       "style": {
         "navigationBarTitleText": "播放房价",

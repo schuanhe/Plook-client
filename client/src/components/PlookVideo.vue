@@ -1,6 +1,6 @@
 <template>
   <view class="plook-video">
-    <video id="myVideo" src="https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/2minute-demo.mp4">
+    <video id="myVideo" src="https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/2minute-demo.mp4" danmu-btn=true enable-danmu=true>
     </video>
   </view>
 </template>
