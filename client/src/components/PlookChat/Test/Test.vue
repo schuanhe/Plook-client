@@ -4,10 +4,17 @@
     <Message v-bind="mockProps3" />
     <Message v-bind="mockProps2" />
   </div>
+  <uni-list>
+    <uni-list-item  title="列表文字" ></uni-list-item>
+    <uni-list-item :disabled="true" title="列表禁用状态" ></uni-list-item>
+  </uni-list>
 </template>
 
 <script setup>
 import Message from '../Message/Message.vue';
+import UniListItem from "../../../uni_modules/uni-list/components/uni-list-item/uni-list-item.vue";
+import UniList from "../../../uni_modules/uni-list/components/uni-list/uni-list.vue";
+
 
 const mockProps = {
   _id: '123456789', // 字符串或数字

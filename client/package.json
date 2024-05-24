@@ -64,6 +64,7 @@
     "@dcloudio/uni-stacktracey": "3.0.0-4010520240507001",
     "@dcloudio/vite-plugin-uni": "3.0.0-4010520240507001",
     "@vue/runtime-core": "^3.4.21",
+    "sass": "^1.77.2",
     "vite": "5.2.8"
   }
 }
