@@ -1,12 +1,10 @@
 <template>
-  <view id="app" class="container">
+  <view class="container">
     <view class="video-container">
-      <PlookVideo />
+      <plook-video />
     </view>
     <view class="comments-container">
-      <h2>评论区</h2>
-      <p>这是一个评论。</p>
-      <!-- 更多评论 -->
+      <message-container />
     </view>
   </view>
 </template>
@@ -14,22 +12,17 @@
 <script setup lang="ts">
 
 import PlookVideo from "../../components/PlookVideo.vue";
+import MessageContainer from "../../components/PlookChat/MessageContainer/Index.vue";
 </script>
 
 
 <style scoped>
-body, html {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
+  height: 100%;
+  width: 100%;
 }
 
 .video-container {
@@ -40,6 +33,7 @@ body, html {
 
 .comments-container {
   width: 100%;
+  height: 100%;
   margin-top: 10px;
   background: #007aff;
 }
@@ -58,6 +52,7 @@ body, html {
 
   .comments-container {
     width: 35%;
+    height: calc(60vw * 9 / 16);
   }
 }
 </style>

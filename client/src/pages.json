@@ -1,6 +1,13 @@
 {
   "pages": [
     {
+      "path": "pages/PlookRoom/PlookRoom",
+      "style": {
+        "navigationBarTitleText": "房间",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
       "path": "components/PlookChat/Test/Test",
       "style": {
         "navigationBarTitleText": "聊天室",
