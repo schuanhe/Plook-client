@@ -1,0 +1,14 @@
+{
+  "name": "plook",
+  "version": "1.0.0",
+  "description": "当前Plook重构：\r 使用uniapp(可以多端打包就很爽)前端，nodejs后端，实现视频源自定义，实现视频源共享观看。",
+  "main": "index.js",
+  "scripts": {
+    "dev-server": "cd server && node src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "schuanhe",
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
