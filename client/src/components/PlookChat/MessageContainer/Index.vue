@@ -92,6 +92,7 @@ const mockProps3 = {
 .messageContainer {
   height: 100%;
   width: 100%;
+  background: white;
 }
 
 </style>
