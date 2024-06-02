@@ -85,6 +85,7 @@ const message = {
 
 .Message + .Message {
   margin-top: 12px;
+
 }
 
 .Message.right .Message-main,

@@ -53,7 +53,7 @@ const {content, ...other} = props;
   max-width: 300px; /* 示例变量值 */
   /* min-width: 0; */
   min-width: 1px; /* for IE bug */
-  background: #ffffff; /* 示例变量值 */
+  background: #FFCCCC; /* 示例变量值 */
   border-radius: 10px; /* 示例变量值 */
 }
 
@@ -69,7 +69,7 @@ const {content, ...other} = props;
 .Message.right .Bubble {
   margin-left: 46px;
   border-radius: 12px;
-  background: #fff9eb;
+  background: #99CCFF;
 }
 
 

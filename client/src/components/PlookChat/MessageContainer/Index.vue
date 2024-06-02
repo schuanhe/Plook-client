@@ -4,7 +4,23 @@
       <Message v-bind="mockProps"/>
       <Message v-bind="mockProps3"/>
       <Message v-bind="mockProps2"/>
+      <Message v-bind="mockProps"/>
+      <Message v-bind="mockProps"/>
+      <Message v-bind="mockProps"/>
+      <Message v-bind="mockProps"/>
+      <Message v-bind="mockProps"/>
+      <Message v-bind="mockProps"/>
+      <Message v-bind="mockProps"/>
+      <Message v-bind="mockProps"/>
+      <Message v-bind="mockProps"/>
+      <Message v-bind="mockProps"/>
+      <Message v-bind="mockProps"/>
     </uni-list>
+    <view class="messageInputView">
+      <uni-easyinput class="messageInput" v-model="value" placeholder="请输入内容"></uni-easyinput>
+    </view>
+
+
   </div>
 
 </template>
@@ -13,15 +29,16 @@
 import Message from '../Message/Message.vue';
 import UniListItem from "../../../uni_modules/uni-list/components/uni-list-item/uni-list-item.vue";
 import UniList from "../../../uni_modules/uni-list/components/uni-list/uni-list.vue";
+import UniEasyinput from "../../../uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.vue";
 
 
 const mockProps = {
   _id: '123456789', // 字符串或数字
   type: 'text', // 字符串
   content: {
-    text: '测试长字符字符字符长城长城长踩踩踩踩踩踩踩踩踩踩踩踩踩踩踩踩踩踩从',
+    text: '测试长字符666666666踩踩踩66666踩踩踩66666踩踩踩66666踩踩踩66666踩踩踩66666踩踩踩踩踩从',
   }, // 对象或字符串
-  createdAt: Date.now(), // 时间戳
+
   user: {
     id: 'user123', // 用户 ID
     name: 'schuanhe', // 用户名
@@ -93,6 +110,35 @@ const mockProps3 = {
   height: 100%;
   width: 100%;
   background: white;
+  display: flex;
+  flex-direction:column;
+  justify-content: space-between;
+}
+
+.messageList {
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-bottom: 15px;
+  margin-top: 10px;
+}
+
+
+.messageInputView {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap-reverse;
+  /* 内部居中 */
+  justify-content: center;
+  max-height: 38px;
+  width: 100%;
+}
+
+.messageInput {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* 卡片阴影 */
+  border-radius: 5px; /* 卡片边框圆角 */
+  width: 100%;
+  height: 100%;
+  margin: 10px;
 }
 
 </style>
