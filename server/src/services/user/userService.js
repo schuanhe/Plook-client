@@ -1,5 +1,4 @@
-// userService.js
-const {User} = require('../../models');
+const {User} = require('../../models/User');
 
 // 向数据库添加用户的方法
 async function addUser(username,email) {

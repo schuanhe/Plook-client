@@ -17,8 +17,10 @@ if (config.database.dialect === 'mysql') {
         dialect: 'sqlite',
         storage: sqlitePath
     });
+} else if (config.database.dialect === 'noDB'){
+    console.log('启用noDB')
 } else {
-    throw new Error('没有找到匹配的数据库类型');
+    throw new Error('不支持的数据库类型');
 }
 
 module.exports = sequelize;
