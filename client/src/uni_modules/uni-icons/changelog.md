@@ -9,13 +9,13 @@ fix: 修复图标大小默认值错误的问题
 ## 2.0.5（2023-12-11）
 - 优化 兼容老版本icon类型，如 top ，bottom 等
 ## 2.0.4（2023-12-06）
-- 优化 uni-app x 下示例项目图标排序
+- 优化 uni-index x 下示例项目图标排序
 ## 2.0.3（2023-12-06）
 - 修复 nvue下引入组件报错的bug
 ## 2.0.2（2023-12-05）
 -优化 size 属性支持单位
 ## 2.0.1（2023-12-05）
-- 新增 uni-app x 支持定义图标
+- 新增 uni-index x 支持定义图标
 ## 1.3.5（2022-01-24）
 - 优化 size 属性可以传入不带单位的字符串数值
 ## 1.3.4（2022-01-24）
@@ -33,7 +33,7 @@ fix: 修复图标大小默认值错误的问题
 - 文档迁移，详见:[https://uniapp.dcloud.io/component/uniui/uni-icons](https://uniapp.dcloud.io/component/uniui/uni-icons)
 ## 1.1.7（2021-11-08）
 ## 1.2.0（2021-07-30）
-- 组件兼容 vue3，如何创建vue3项目，详见 [uni-app 项目支持 vue3 介绍](https://ask.dcloud.net.cn/article/37834)
+- 组件兼容 vue3，如何创建vue3项目，详见 [uni-index 项目支持 vue3 介绍](https://ask.dcloud.net.cn/article/37834)
 ## 1.1.5（2021-05-12）
 - 新增 组件示例地址
 ## 1.1.4（2021-02-05）

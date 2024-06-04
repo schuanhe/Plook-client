@@ -59,7 +59,7 @@
 - 优化 组件示例，新增动态校验示例代码
 - 优化 组件文档，使用方式更清晰
 ## 1.2.0（2021-07-13）
-- 组件兼容 vue3，如何创建vue3项目，详见 [uni-app 项目支持 vue3 介绍](https://ask.dcloud.net.cn/article/37834)
+- 组件兼容 vue3，如何创建vue3项目，详见 [uni-index 项目支持 vue3 介绍](https://ask.dcloud.net.cn/article/37834)
 ## 1.1.2（2021-06-25）
 - 修复 pattern 属性在微信小程序平台无效的问题
 ## 1.1.1（2021-06-22）

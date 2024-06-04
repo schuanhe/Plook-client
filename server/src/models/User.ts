@@ -1,10 +1,20 @@
-// models/userModel.js
-const { DataTypes, Model} = require('sequelize');
-const sequelize = require('../utlis/db');
+// models/userModel.ts
+import {DataTypes, Model} from 'sequelize';
+import sequelize  from '../utils/db';
 
-class User extends Model {}
+/*
+ * 用户模型
+ */
 
-const UserModel = {
+
+
+class UserModel extends Model{
+    id!: number;
+    username!: string;
+    email!: string;
+}
+
+let User = UserModel.init({
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -18,10 +28,6 @@ const UserModel = {
         type: DataTypes.STRING,
         allowNull: false
     }
-}
-
-User.init({
-    ...UserModel
 },  {
     sequelize,
     modelName: 'User',
@@ -29,5 +35,5 @@ User.init({
 });
 
 
-
-module.exports = User;
+export default User;
+export {UserModel};

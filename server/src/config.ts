@@ -1,7 +1,8 @@
-const path = require('path');
+import path from 'path';
+
 
 let rootPath = path.resolve(__dirname, '..')
-module.exports = {
+export default  {
     rootPath: rootPath,
     server: {
         port: process.env.PORT || 3001 // 使用环境变量指定端口号，否则默认为 3000
@@ -13,7 +14,7 @@ module.exports = {
         },
         mysql: {
             host: process.env.DB_HOST || 'localhost', // MySQL 主机地址
-            port: process.env.DB_PORT || 3306, // MySQL 端口号
+            port: (process.env.DB_PORT ? Number(process.env.DB_PORT) : 3306),
             username: process.env.DB_USERNAME || 'root', // MySQL 用户名
             password: process.env.DB_PASSWORD || 'root', // MySQL 密码
             database: process.env.DB_NAME || 'plook', // MySQL 数据库名称

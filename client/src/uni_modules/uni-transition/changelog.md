@@ -10,7 +10,7 @@
 ## 1.2.1（2021-09-27）
 - 修复 init 方法不生效的 Bug
 ## 1.2.0（2021-07-30）
-- 组件兼容 vue3，如何创建 vue3 项目，详见 [uni-app 项目支持 vue3 介绍](https://ask.dcloud.net.cn/article/37834)
+- 组件兼容 vue3，如何创建 vue3 项目，详见 [uni-index 项目支持 vue3 介绍](https://ask.dcloud.net.cn/article/37834)
 ## 1.1.1（2021-05-12）
 - 新增 示例地址
 - 修复 示例项目缺少组件的 Bug

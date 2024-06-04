@@ -1,6 +1,6 @@
 // models/userModel.js
-const { DataTypes, Model} = require('sequelize');
-const sequelize = require('../utlis/db');
+import {DataTypes, Model} from 'sequelize';
+import sequelize  from '../utils/db';
 
 class Room extends Model {}
 

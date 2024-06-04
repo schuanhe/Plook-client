@@ -14,7 +14,7 @@ export default {
 
 <style>
 /*每个页面公共css */
-#app {
+#index {
   height: 100%;
   width: 100%;
 }

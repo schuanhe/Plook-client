@@ -13,7 +13,7 @@
 ## 1.8.5（2024-01-26）
 - 新增 uni-popup-dialog 新增属性showClose:控制关闭按钮的显示
 ## 1.8.4（2023-11-15）
-- 新增 uni-popup 支持uni-app-x 注意暂时仅支持 `maskClick` `@open` `@close`
+- 新增 uni-popup 支持uni-index-x 注意暂时仅支持 `maskClick` `@open` `@close`
 ## 1.8.3（2023-04-17）
 - 修复 uni-popup 重复打开时的 bug
 ## 1.8.2（2023-02-02）
@@ -50,7 +50,7 @@
 ## 1.6.1（2021-07-30）
 - 优化 vue3下事件警告的问题
 ## 1.6.0（2021-07-13）
-- 组件兼容 vue3，如何创建vue3项目，详见 [uni-app 项目支持 vue3 介绍](https://ask.dcloud.net.cn/article/37834)
+- 组件兼容 vue3，如何创建vue3项目，详见 [uni-index 项目支持 vue3 介绍](https://ask.dcloud.net.cn/article/37834)
 ## 1.5.0（2021-06-23）
 - 新增 mask-click 遮罩层点击事件
 ## 1.4.5（2021-06-22）
