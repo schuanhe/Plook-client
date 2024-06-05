@@ -23,8 +23,6 @@ function initializeSequelize(): Sequelize {
             dialect: 'sqlite',
             storage: sqlitePath
         });
-    } else if (config.database.dialect === 'noDB') {
-        console.log('启用noDB')
     } else {
         throw new Error('不识别的数据库类型');
     }

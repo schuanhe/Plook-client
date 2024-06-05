@@ -1,7 +1,5 @@
 import User, {UserModel} from '../../models/User';
-
 import {IUserService} from "./iUserService";
-import user from "../../models/User";
 
 
 class UserService implements IUserService {

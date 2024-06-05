@@ -1,9 +1,7 @@
-// src/controllers/userController.js
-// const userService = require('../services').userService;
-// const {userService} = require('../services/index');
+
 import {IUserController} from "./iUserController";
 import { Request, Response } from 'express';
-import {userService} from "../services/user/userService";
+import {userService} from "../services";
 
 class UserController implements IUserController {
 

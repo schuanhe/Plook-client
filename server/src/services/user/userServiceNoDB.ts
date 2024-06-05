@@ -1,5 +1,5 @@
 // userService.js
-import User, {UserModel} from '../../models/User';
+import {UserModel} from '../../models/User';
 import {UserTable} from '../../utils/noDBUtil';
 import {IUserService} from "./iUserService";
 

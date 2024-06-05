@@ -4,8 +4,8 @@ const checkAndCreateTableWithDefaultData = async () => {
   userService.init();
 };
 
-function init() {
-  checkAndCreateTableWithDefaultData();
+async function init() {
+  await checkAndCreateTableWithDefaultData();
 }
 
 export default init;

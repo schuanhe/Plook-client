@@ -1,4 +1,4 @@
-import {Application, NextFunction, Request, Response} from "express";
+import {Request, Response} from "express";
 
 
 export interface IUserController {

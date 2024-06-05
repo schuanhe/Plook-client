@@ -1,6 +1,6 @@
 
 // 设置接口
-import User, {UserModel} from "../../models/User";
+import {UserModel} from "../../models/User";
 
 export interface IUserService {
     /**
