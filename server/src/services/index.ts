@@ -1,5 +1,5 @@
 
-import { userService } from "./user/userService";
+import { userService } from "./user/userServiceNoDB";
 
 
 export {

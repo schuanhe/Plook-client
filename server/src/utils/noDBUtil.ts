@@ -1,10 +1,9 @@
-import UserModel, {UserInstance} from '../models/User';
-import User from "../models/User";
+import {UserInstance} from '../models/User';
 
 
 
 // 定义UserTable = List<User>
-export let UserTable: UserInstance[] =[];
+export let userTable: UserInstance[] = [];
 export let RoomTable: [] = [];
 
 
