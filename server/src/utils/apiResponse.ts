@@ -1,6 +1,6 @@
 
 
-class ApiResponse {
+export class ApiResponse {
     private readonly code: number;
     private readonly message: string;
     private readonly data: any;
