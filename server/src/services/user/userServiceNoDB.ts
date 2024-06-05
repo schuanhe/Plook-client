@@ -3,6 +3,8 @@ import User, {UserModel} from '../../models/User';
 import {UserTable} from '../../utils/noDBUtil';
 import {IUserService} from "./iUserService";
 
+
+
 export class UserService implements IUserService{
     getUserInfo(user:UserModel) {
         if (!user?.id)
@@ -50,7 +52,10 @@ export class UserService implements IUserService{
             userModel.set("username", "admin")
             userModel.set("email", "admin@admin.com")
             UserTable.push(userModel);
-            console.log("初始化用户信息" + userModel)
+            console.log("初始化用户信息" + userModel.toJSON())
         }
     }
 }
+
+
+export const userService = new UserService();

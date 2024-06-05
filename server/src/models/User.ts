@@ -1,14 +1,13 @@
 // models/userModel.ts
-import {DataTypes, Model} from 'sequelize';
-import sequelize  from '../utils/db';
+import {DataTypes, Model, ModelCtor} from 'sequelize';
+import sequelize from '../utils/db';
+import config from "../config";
+
 
 /*
  * 用户模型
  */
-
-
-
-class UserModel extends Model{
+class UserModel extends Model {
     id!: number;
     username!: string;
     email!: string;
@@ -28,12 +27,13 @@ let User = UserModel.init({
         type: DataTypes.STRING,
         allowNull: false
     }
-},  {
+}, {
     sequelize,
     modelName: 'User',
     tableName: 'users'
 });
 
 
+export type UserInstance = typeof UserModel.prototype;
 export default User;
 export {UserModel};

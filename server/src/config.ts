@@ -1,8 +1,10 @@
 import path from 'path';
-
+require('dotenv').config();
 
 let rootPath = path.resolve(__dirname, '..')
+
 export default  {
+
     rootPath: rootPath,
     server: {
         port: process.env.PORT || 3001 // 使用环境变量指定端口号，否则默认为 3000
