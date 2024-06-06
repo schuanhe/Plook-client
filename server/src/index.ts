@@ -1,8 +1,9 @@
 import init from "./utils/init";
 import express from 'express';
-import bodyParser from 'body-parser';
 import routes from './routes';
 import config from './config';
+import http from 'http';
+import socketHandler from './services/socketHandler';
 
 // 创建 Express 应用
 const app = express();
@@ -12,10 +13,12 @@ app.use(express.json());
 
 // 路由
 app.use('/', routes);
+const server = http.createServer(app);
+socketHandler(server)
 
 
-const port = config.server.port
+const port = config.server.port;
 // 启动服务器，监听指定端口
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Plook 服务端已启动 http://localhost:${port}`);
 });
