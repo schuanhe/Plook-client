@@ -3,13 +3,18 @@ import {IUserController} from "./iUserController";
 import { Request, Response } from 'express';
 import {userService} from "../services";
 import {ApiResponse} from "../utils/apiResponse";
+import {UserInstance, UserModel} from "../models/User";
 
 class UserController implements IUserController {
 
     public async addUser(req: Request, res: Response): Promise<void> {
-        console.log(req.body);
+        let newUser: UserInstance = req.body;
+        if (!newUser.username || !newUser.email) {
+            res.status(400).send(ApiResponse.badRequest("参数错误"));
+            return;
+        }
 
-        let user = await userService.getUserInfoByName(req.body)
+        let user = await userService.getUserInfoByName(newUser)
         if (user) {
             res.status(400).send(ApiResponse.error("用户名已存在"));
             return;
