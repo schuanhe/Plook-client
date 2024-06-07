@@ -10,7 +10,8 @@ import config from "../config";
 class UserModel extends Model {
     id!: number;
     username!: string;
-    email!: string;
+    password!: string;
+    email: string | undefined;
 }
 
 let User = UserModel.init({
@@ -21,16 +22,31 @@ let User = UserModel.init({
     },
     username: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true, // 确保用户名唯一
+        validate: {
+            isAlphanumeric: true, // 验证用户名是否只包含字母和数字
+            len: [3, 20] // 验证用户名长度是否在 3 到 20 个字符之间
+        }
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            len: [6, 20] // 验证密码长度是否在 6 到 20 个字符之间
+        }
     },
     email: {
         type: DataTypes.STRING,
-        allowNull: false
-    }
+        allowNull: false,
+        validate: {
+            isEmail: true // 验证邮箱格式是否正确
+        }
+    },
 }, {
     sequelize,
     modelName: 'User',
-    tableName: 'users'
+    tableName: 'users',
 });
 
 

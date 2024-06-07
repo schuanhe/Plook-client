@@ -1,12 +1,16 @@
-// models/userModel.js
 import {DataTypes, Model} from 'sequelize';
 import sequelize  from '../utils/db';
-
-class Room extends Model {}
-
+import User from "./User";
 
 
-Room.init({
+class RoomModel extends Model {
+    id!: number;
+    roomName!: string;
+    password: string|undefined;
+    roomVideoUrl!: string;
+}
+
+let Room = RoomModel.init({
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -26,4 +30,6 @@ Room.init({
     tableName: 'Rooms'
 })
 
-module.exports = Room;
+export type RoomInstance = typeof RoomModel.prototype;
+export default Room;
+export {RoomModel};

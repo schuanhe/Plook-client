@@ -13,6 +13,11 @@ export interface IUserService {
     getUserInfoByName(user: UserModel): Promise<any>;
 
     /**
+     * 获取用户信息 通过用户username + password
+     */
+    getUserInfoByNameAndPassword(user: UserModel): Promise<any>;
+
+    /**
      * 获取用户列表
      */
     getUserList(): Promise<any>;

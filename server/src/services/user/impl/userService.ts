@@ -1,5 +1,5 @@
-import User, {UserModel} from '../../models/User';
-import {IUserService} from "./iUserService";
+import User, {UserInstance, UserModel} from '../../../models/User';
+import {IUserService} from "../iUserService";
 
 
 class UserService implements IUserService {
@@ -7,7 +7,8 @@ class UserService implements IUserService {
         return User.findOne({
             where: {
                 id: user.id
-            }
+            },
+            attributes: ['id', 'username', 'email'] // 仅包含想要返回的字段
         });
     }
 
@@ -15,7 +16,18 @@ class UserService implements IUserService {
         return User.findOne({
             where: {
                 username: user.username
-            }
+            },
+            attributes: ['id', 'username', 'email']
+        });
+    }
+
+    getUserInfoByNameAndPassword(user: UserModel){
+        return User.findOne({
+            where: {
+                username: user.username,
+                password: user.password
+            },
+            attributes: ['id', 'username', 'email']
         });
     }
 
