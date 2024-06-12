@@ -1,4 +1,4 @@
-import User, {UserInstance, UserModel} from '../../../models/User';
+import User, {UserModel} from '../../models/User';
 import {IUserService} from "../iUserService";
 
 
@@ -32,26 +32,34 @@ class UserService implements IUserService {
     }
 
     getUserList() {
-        return User.findAll();
-    }
-
-    addUser(user: UserModel) {
-        if (!user.username || !user.email)
-            return Promise.reject('用户名或邮箱不能为空');
-        let CUser: UserModel = new UserModel()
-        CUser.username = user.username;
-        this.getUserInfoByName(CUser)
-            .then(r => {
-                if (r) {
-                    return Promise.reject('用户名已存在');
-                }
-            });
-
-        return User.create({
-            username: user.username,
-            email: user.email
+        return User.findAll({
+            attributes: ['id', 'username', 'email']
         });
     }
+
+    async addUser(user: UserModel): Promise<UserModel> {
+        if (!user.username || !user.email) {
+            return Promise.reject('用户名或邮箱不能为空');
+        }
+        // 创建新的用户对象
+        let CUser: UserModel = new UserModel();
+        CUser.username = user.username;
+        try {
+            // 获取用户名信息，检查是否已存在
+            const existingUser = await this.getUserInfoByName(CUser);
+            if (existingUser) {
+                return Promise.reject('用户名已存在');
+            }
+            // 创建新用户
+            return await User.create({
+                username: user.username,
+                email: user.email
+            });
+        } catch (error) {
+            return Promise.reject('添加用户时发生意外错误');
+        }
+    }
+
 
     init() {
         try {

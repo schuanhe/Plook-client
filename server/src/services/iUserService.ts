@@ -1,6 +1,6 @@
 
 // 设置接口
-import {UserModel} from "../../models/User";
+import {UserModel} from "../models/User";
 
 export interface IUserService {
     /**
@@ -25,7 +25,7 @@ export interface IUserService {
     /**
      * 添加用户
      */
-    addUser(user: UserModel): Promise<any>;
+    addUser(user: UserModel): Promise<UserModel>;
 
     /**
      * 初始化

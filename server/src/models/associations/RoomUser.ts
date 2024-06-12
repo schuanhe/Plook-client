@@ -6,13 +6,18 @@ import db from "../../utils/db";
 
 class RoomUserModel extends Model {
     id!: number;
-    roomName!: string;
-    password: string | undefined;
-    roomVideoUrl!: string;
+    userId!: number;
+    roomId!: number;
+    joinedAt!: Date;
 }
 
 
-const UserRoom = RoomUserModel.init({
+const RoomUser = RoomUserModel.init({
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
     userId: {
         type: DataTypes.INTEGER,
         references: {
@@ -37,5 +42,9 @@ const UserRoom = RoomUserModel.init({
     timestamps: false
 });
 
-User.belongsToMany(Room, { through: UserRoom, foreignKey: 'userId' });
-Room.belongsToMany(User, { through: UserRoom, foreignKey: 'roomId' });
+User.belongsToMany(Room, { through: RoomUser, foreignKey: 'userId' });
+Room.belongsToMany(User, { through: RoomUser, foreignKey: 'roomId' });
+
+export default RoomUser;
+export type RoomUserInstance = typeof RoomUserModel.prototype;
+export {RoomUserModel};

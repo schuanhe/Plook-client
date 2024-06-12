@@ -1,5 +1,5 @@
 
-import { userService } from "./user/impl/userService";
+import { userService } from "./impl/userService";
 
 
 export {
