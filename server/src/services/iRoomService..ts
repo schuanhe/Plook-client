@@ -24,7 +24,7 @@ export interface IRoomService {
     /**
      * 加入房间
      */
-    joinRoom(room: RoomModel, user: UserModel): Promise<RoomUserModel>;
+    joinRoom(room: RoomModel, userId: number): Promise<RoomUserModel>;
 
 
     /**

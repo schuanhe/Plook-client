@@ -29,7 +29,7 @@ let Room = RoomModel.init({
         type: DataTypes.STRING,
         allowNull: false
     },
-    roomUrl: {
+    roomVideoUrl: {
         type: DataTypes.STRING,
         allowNull: false
     },

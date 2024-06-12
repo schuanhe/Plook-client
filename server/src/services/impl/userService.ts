@@ -61,28 +61,25 @@ class UserService implements IUserService {
     }
 
 
-    init() {
+    async init() {
         try {
-            User.sync().then(r =>
-                this.getUserList().then(
-                    users => {
-                        if (users.length === 0) {
-                            User.create({
-                                username: 'admin',
-                                email: 'admin@example.com'
-                            }).then(
-                                user => {
-                                    console.log("添加默认用户成功:" + user.toJSON());
-                                }
-                            )
-                        }
-                    })
-            );
+            await User.sync(); // 同步模型
+            const users = await this.getUserList(); // 获取用户列表
+            if (users.length === 0) {
+                const user = await User.create({
+                    username: 'admin',
+                    password: '123456',
+                    email: 'admin@example.com'
+                });
+                console.log("添加默认用户成功:", user.toJSON());
+                return true;
+            }
         } catch (error) {
             console.error('初始化失败:', error);
         }
-    }
 
+        return false;
+    }
 }
 
 export const userService = new UserService;

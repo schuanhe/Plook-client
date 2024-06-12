@@ -4,15 +4,23 @@ import { UserModel } from "../../models/User";
 import RoomUser, { RoomUserModel } from "../../models/associations/RoomUser";
 
 class RoomService implements IRoomService {
-    addRoom(room: RoomModel): Promise<RoomModel> {
+    async addRoom(room: RoomModel): Promise<RoomModel> {
         if (!room.roomName || !room.userId || !room.roomVideoUrl)
             return Promise.reject("房间信息不完整");
-        return Room.create({
+        const newRoom = await Room.create({
             roomName: room.roomName,
             roomVideoUrl: room.roomVideoUrl,
             userId: room.userId,
             password: room.password
         })
+        if (!newRoom)
+            return Promise.reject("创建房间失败");
+        this.joinRoom(newRoom, room.userId).catch(
+            (err) => {
+                return Promise.reject(err);
+            }
+        )
+        return newRoom;
     }
 
     getRoomInfo(roomId: number): Promise<RoomModel|null> {
@@ -43,8 +51,8 @@ class RoomService implements IRoomService {
     }
 
 
-    async joinRoom(room: RoomModel, user: UserModel): Promise<RoomUserModel> {
-        if (!room.id || !user.id) {
+    async joinRoom(room: RoomModel, userId: number): Promise<RoomUserModel> {
+        if (!room.id || !userId) {
             return Promise.reject("加入房间信息不完整");
         }
         try {
@@ -56,8 +64,9 @@ class RoomService implements IRoomService {
                 return Promise.reject("密码错误");
             }
             return await RoomUser.create({
-                userId: user.id,
-                roomId: room.id
+                userId: userId,
+                roomId: room.id,
+                joinedAt: new Date()
             });
         } catch (err) {
             console.error("加入房间时发生错误:", err);
@@ -67,9 +76,12 @@ class RoomService implements IRoomService {
 
     init(): void {
         try {
+            Room.sync().then();
             RoomUser.sync().then();
         } catch (error) {
-            console.error('初始化失败:', error);
+            console.error('Room初始化失败:', error);
         }
     }
 }
+
+export const roomService = new RoomService();

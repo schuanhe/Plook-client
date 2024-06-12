@@ -21,4 +21,5 @@ const port = config.server.port;
 // 启动服务器，监听指定端口
 server.listen(port, () => {
     console.log(`Plook 服务端已启动 http://localhost:${port}`);
+    init().then();
 });

@@ -30,6 +30,6 @@ export interface IUserService {
     /**
      * 初始化
      */
-    init(): void;
+    init(): Promise<boolean>;
 
 }
