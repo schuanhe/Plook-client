@@ -4,6 +4,7 @@ import e, { Request, Response } from 'express';
 import {userService} from "../../services";
 import {ApiResponse} from "../../utils/apiResponse";
 import user, {UserInstance, UserModel} from "../../models/User";
+import {generateToken} from "../../utils/jwtUtil"
 
 class UserController implements IUserController {
 
@@ -36,7 +37,11 @@ class UserController implements IUserController {
         }
         userService.getUserInfoByNameAndPassword(reqUser).then(user => {
             if (user) {
-                res.status(200).send(ApiResponse.success(user));
+                const token = generateToken(user.id)
+                res.status(200).send(ApiResponse.success({
+                    user: user,
+                    token: token
+                }));
             } else {
                 res.status(404).send(ApiResponse.notFound("账号或密码错误"));
             }

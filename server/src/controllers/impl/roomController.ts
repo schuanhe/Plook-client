@@ -2,7 +2,7 @@
 import {IUserController} from "../iUserController";
 import e, { Request, Response } from 'express';
 import {ApiResponse} from "../../utils/apiResponse";
-import {roomService} from "../../services/impl/roomService";
+import {roomService} from "../../services";
 import {IRoomController} from "../iRoomController";
 import {RoomModel} from "../../models/Room";
 import {UserModel} from "../../models/User";
@@ -11,6 +11,7 @@ class RoomController implements IRoomController {
     createRoom(req: e.Request, res: e.Response): void {
         let newRoom:RoomModel = req.body;
         if (newRoom.userId != req.body.jwtUserId){
+            console.log(req.body.jwtUserId.toString())
             res.status(400).send(ApiResponse.badRequest("用户id不匹配"))
             return;
         }
@@ -47,10 +48,9 @@ class RoomController implements IRoomController {
     }
 
     joinRoom(req: e.Request, res: e.Response): void {
-        let reqUser:UserModel = req.body.user;
-        let reqRoom:RoomModel = req.body.room;
-        console.log(reqUser, reqRoom)
-        roomService.joinRoom(reqRoom, reqUser).then(r =>
+        let reqUserId:number = req.body.jwtUserId;
+        let reqRoom:RoomModel = req.body;
+        roomService.joinRoom(reqRoom, reqUserId).then(r =>
             res.status(200).send(ApiResponse.success(r))
         ).catch(err => {
             res.status(500).send(ApiResponse.error(err))

@@ -1,6 +1,7 @@
 import express from 'express';
-import jwt from 'jsonwebtoken';
+import jwt,{ JwtPayload }  from 'jsonwebtoken';
 import config from '../config';
+import user from "../models/User";
 // 假设你使用的是基于令牌的鉴权，比如 JWT
 const authMiddleware = (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const token = req.headers['authorization'];
@@ -11,8 +12,11 @@ const authMiddleware = (req: express.Request, res: express.Response, next: expre
     try {
         // 假设使用jsonwebtoken库来验证JWT
         const decoded = jwt.verify(token, config.jwtSecret);
-        req.body.jwtUserId = Number(decoded);
-        next();
+
+        if (typeof decoded !== 'string'){
+            req.body.jwtUserId = Number(decoded.userId);
+            next();
+        }
     } catch (error) {
         return res.status(401).json({ message: '令牌无效或已过期' });
     }
