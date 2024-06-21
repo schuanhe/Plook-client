@@ -11,6 +11,27 @@ export default function (server: Server) {
 
     io.on('connection', (socket:CustomSocket) => {
         const socketService = new SocketService(socket);
+        // 判断用户是否登录
+        if (socket.handshake.query && socket.handshake.query.token) {
+            const token = socket.handshake.query.token;
+            // TODO: 验证 token 是否有效
+            socket.user = Number(token);
+            if (!socket.user) {
+                socket.emit(SocketEvent.ERROR, {
+                    message: '请先登录'
+                });
+                socket.disconnect();
+            } else {
+                console.log('token:', token);
+                console.log('客户端连接成功')
+            }
+        } else {
+            socket.emit(SocketEvent.ERROR, {
+                message: '请先登录'
+            });
+            socket.disconnect();
+        }
+
 
 
         socket.on(SocketEvent.ROOM_INFO, (socketMessage:SocketMessage) => {
@@ -29,10 +50,6 @@ export default function (server: Server) {
         socket.on(SocketEvent.ROOM_MESSAGE, (socketMessage:SocketMessage) => {
             socketService.sendMessage(socketMessage, io);
         })
-
-        // TODO 暂时不开放
-
-
 
 
         // 当客户端断开连接时执行的逻辑

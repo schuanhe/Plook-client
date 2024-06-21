@@ -50,7 +50,7 @@ import UniDrawer from "../../uni_modules/uni-drawer/components/uni-drawer/uni-dr
 import UniForms from "../../uni_modules/uni-forms/components/uni-forms/uni-forms.vue";
 import UniFormsItem from "../../uni_modules/uni-forms/components/uni-forms-item/uni-forms-item.vue";
 import UniEasyinput from "../../uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.vue";
-
+import {socketIo, socketMessage,} from "../../utlis/socketIo"
 // 设置是否可见
 let showSetRoom = ref(false)
 
@@ -101,7 +101,14 @@ const trigger = (e) => {
 
 const submit = () => {
   console.log('submit')
-  console.log(roomData)
+  socketIo.start()
+  // 加入房间的请求
+  socketIo.send(socketMessage.sendRoomInfo({
+    type: 'join',
+    data: {
+      roomId: "123456789",
+    }
+  }))
 }
 
 </script>

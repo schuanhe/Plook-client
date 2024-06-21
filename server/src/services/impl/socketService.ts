@@ -14,6 +14,7 @@ export class SocketService {
     // ROOM_INFO 事件处理
 
     public joinRoom(message: SocketMessage) {
+        console.log('joinRoom', message)
         const {roomId} = message.data;
         if (!roomId){
             console.log('房间号不能为空');
@@ -64,6 +65,7 @@ export class SocketService {
             return;
         }
 
+        console.log(`${this.socket.user} 发送消息到房间 ${roomId}`)
         if (this.socket.rooms.has(String(roomId))) {
             io.to(String(roomId)).emit(SocketEvent.ROOM_MESSAGE, {
                 userId: this.socket.user,

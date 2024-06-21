@@ -54,6 +54,7 @@
     "@dcloudio/uni-mp-weixin": "3.0.0-4010520240507001",
     "@dcloudio/uni-mp-xhs": "3.0.0-4010520240507001",
     "@dcloudio/uni-quickapp-webview": "3.0.0-4010520240507001",
+    "@hyoga/uni-socket.io": "^3.0.4",
     "vue": "^3.4.21",
     "vue-i18n": "^9.1.9"
   },
