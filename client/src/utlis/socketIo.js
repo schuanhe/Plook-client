@@ -1,5 +1,6 @@
 import io from '@hyoga/uni-socket.io';
 import config from "../config";
+import {onRoomInfo, onRoomMessage} from "./onMessage";
 
 class SocketIo {
 
@@ -28,11 +29,16 @@ class SocketIo {
 
             this.socket.on(SocketEvent.ROOM_INFO, (message) => {
                 console.log('ws 收到服务器消息：', message);
+                onRoomInfo(message)
             });
             this.socket.on(SocketEvent.ROOM_DB_INFO, (message) => {
                 console.log('ws 收到服务器消息：', message);
             });
             this.socket.on(SocketEvent.ROOM_MESSAGE, (message) => {
+                console.log('ws 收到服务器消息：', message);
+                onRoomMessage(message)
+            });
+            this.socket.on(SocketEvent.VIDEO_OPERATION, (message) => {
                 console.log('ws 收到服务器消息：', message);
             });
             this.socket.on(SocketEvent.BROADCAST, (message) => {
@@ -72,7 +78,7 @@ class SocketIo {
 /**
  * socket.io 事件枚举
  */
-const SocketEvent = {
+export const SocketEvent = {
     /**
      * 房间的信息
      */
@@ -85,6 +91,10 @@ const SocketEvent = {
      * 房间内聊天
      */
     ROOM_MESSAGE : 'roomMessage',
+    /**
+     * 视频操作
+     */
+    VIDEO_OPERATION : 'videoOperation',
     /**
      * 公共广播
      */
@@ -117,6 +127,11 @@ class SocketMessage {
         SM.setTypeAndData(SocketEvent.ROOM_MESSAGE, data);
         return SM;
     }
+    static sendVideoOperation(data) {
+        const SM = new SocketMessage();
+        SM.setTypeAndData(SocketEvent.VIDEO_OPERATION, data);
+        return SM;
+    }
     static sendBroadcast(data) {
         const SM = new SocketMessage();
         SM.setTypeAndData(SocketEvent.BROADCAST, data);
@@ -135,4 +150,3 @@ class SocketMessage {
 
 export const socketIo = new SocketIo();
 export const socketMessage = SocketMessage
-

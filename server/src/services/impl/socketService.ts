@@ -58,7 +58,7 @@ export class SocketService {
     }
 
     sendMessage(socketMessage: SocketMessage, io: Server) {
-        const { roomId, message } = socketMessage.data;
+        const { roomId, message,user } = socketMessage.data;
         if (!roomId || !message) {
             console.log('房间号或消息不能为空');
             this.socket.emit(SocketEvent.ERROR, '房间号或消息不能为空');
@@ -69,7 +69,8 @@ export class SocketService {
         if (this.socket.rooms.has(String(roomId))) {
             io.to(String(roomId)).emit(SocketEvent.ROOM_MESSAGE, {
                 userId: this.socket.user,
-                message: message
+                message: message,
+                user:user
             });
         } else {
             console.log(`${this.socket.id} 未加入房间 ${roomId}`);

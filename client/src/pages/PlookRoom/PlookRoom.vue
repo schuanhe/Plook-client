@@ -51,6 +51,7 @@ import UniForms from "../../uni_modules/uni-forms/components/uni-forms/uni-forms
 import UniFormsItem from "../../uni_modules/uni-forms/components/uni-forms-item/uni-forms-item.vue";
 import UniEasyinput from "../../uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.vue";
 import {socketIo, socketMessage,} from "../../utlis/socketIo"
+import { useRoomStore } from "../../store/room";
 // 设置是否可见
 let showSetRoom = ref(false)
 
@@ -98,17 +99,40 @@ const trigger = (e) => {
     console.log('关闭')
   }
 }
-
+const roomStore = useRoomStore()
 const submit = () => {
-  console.log('submit')
-  socketIo.start()
-  // 加入房间的请求
-  socketIo.send(socketMessage.sendRoomInfo({
-    type: 'join',
-    data: {
-      roomId: "123456789",
-    }
-  }))
+
+
+  const mockProps = {
+    _id: '123456789', // 字符串或数字
+    type: 'text', // 字符串
+    content: {
+      text: '测试长字符666666666踩踩踩66666踩踩踩66666踩踩踩66666踩踩踩66666踩踩踩66666踩踩踩踩踩从',
+    }, // 对象或字符串
+
+    user: {
+      id: 'user123', // 用户 ID
+      name: 'schuanhe', // 用户名
+      avatar: 'https://q1.qlogo.cn/g?b=qq&nk=3533767368&s=640' // 用户头像链接
+    },
+    position: 'left', // 字符串
+    hasTime: true, // 布尔值
+    status: {
+      read: true, // 是否已读
+      delivered: true // 是否已送达
+    },
+  };
+  roomStore.addMsg(mockProps)
+
+  // console.log('submit')
+  // socketIo.start()
+  // // 加入房间的请求
+  // socketIo.send(socketMessage.sendRoomInfo({
+  //   type: 'join',
+  //   data: {
+  //     roomId: "123456789",
+  //   }
+  // }))
 }
 
 </script>
