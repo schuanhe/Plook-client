@@ -1,4 +1,3 @@
-import { useCounterStore } from "../store/counter";
 import { useRoomStore } from "../store/room";
 
 export function onRoomInfo(message) {

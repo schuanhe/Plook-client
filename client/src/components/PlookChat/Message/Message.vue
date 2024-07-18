@@ -52,6 +52,7 @@ const props = defineProps({
     default: true
   },
   status: Object,
+  // TODO 渲染消息内容的函数
   renderMessageContent: {
     type: Function,
     default: () => null

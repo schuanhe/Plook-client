@@ -9,14 +9,16 @@ export default function (server: Server) {
 
     const io = new SocketIOServer(server)
 
-    io.on('connection', (socket:CustomSocket) => {
+    io.on('connection', (socket:Socket) => {
         const socketService = new SocketService(socket);
         // 判断用户是否登录
         if (socket.handshake.query && socket.handshake.query.token) {
             const token = socket.handshake.query.token;
             // TODO: 验证 token 是否有效
-            socket.user = Number(token);
-            if (!socket.user) {
+
+            socket.data.userData = {};
+            socket.data.userData.userId = Number(token);
+            if (!socket.data.userData.userId) {
                 socket.emit(SocketEvent.ERROR, {
                     message: '请先登录'
                 });
@@ -59,9 +61,6 @@ export default function (server: Server) {
     });
 };
 
-export interface CustomSocket extends Socket {
-    user?: number | JwtPayload;
-}
 
 /**
  * socket.io 事件枚举

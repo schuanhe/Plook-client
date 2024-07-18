@@ -1,13 +1,13 @@
 
-import type {Server} from "socket.io";
-import {CustomSocket, SocketEvent, SocketMessage} from "../socketHandler";
+import type {Server, Socket} from "socket.io";
+import { SocketEvent, SocketMessage} from "../socketHandler";
 import { roomService } from "./roomService";
 
 
 export class SocketService {
-    private socket:CustomSocket
+    private socket:Socket
 
-    constructor(socket: CustomSocket) {
+    constructor(socket: Socket) {
         this.socket = socket;
     }
 
@@ -22,6 +22,7 @@ export class SocketService {
             return;
         }
         this.socket.join(String(roomId));
+        this.socket.emit(SocketEvent.ROOM_INFO, '加入房间成功');
         console.log(`${this.socket.id} 加入房间 ${roomId}`);
     }
 
@@ -47,8 +48,11 @@ export class SocketService {
         const roomSockets = io.sockets.adapter.rooms.get(String(roomId));
         if (roomSockets) {
             const clients = Array.from(roomSockets).map(socketId => {
-                const clientSocket = io.sockets.sockets.get(socketId) as CustomSocket;
-                return { userId: clientSocket?.user };
+                const clientSocket = io.sockets.sockets.get(socketId);
+                if (!clientSocket) {
+                    return null;
+                }
+                return { userSocketId:clientSocket.id, userData: clientSocket.data.userData };
             });
             this.socket.emit(SocketEvent.ROOM_INFO, clients);
         } else {
@@ -56,6 +60,7 @@ export class SocketService {
             this.socket.emit(SocketEvent.ERROR, `房间 ${roomId} 不存在`);
         }
     }
+
 
     sendMessage(socketMessage: SocketMessage, io: Server) {
         const { roomId, message,user } = socketMessage.data;
@@ -65,10 +70,10 @@ export class SocketService {
             return;
         }
 
-        console.log(`${this.socket.user} 发送消息到房间 ${roomId}`)
+        console.log(`${this.socket.data.userData.userId} 发送消息到房间 ${roomId}`)
         if (this.socket.rooms.has(String(roomId))) {
             io.to(String(roomId)).emit(SocketEvent.ROOM_MESSAGE, {
-                userId: this.socket.user,
+                userId: this.socket.data.userData.userId,
                 message: message,
                 user:user
             });
@@ -80,7 +85,7 @@ export class SocketService {
     }
     getRoomDbInfo(socketMessage: SocketMessage) {
         const { roomId } = socketMessage.data;
-        const userId = this.socket.user;
+        const userId = this.socket.data.userData.userId;
         if (!roomId || !userId || !Number(userId) || !Number(roomId)) {
             this.socket.emit(SocketEvent.ERROR, '参数错误');
             return;
@@ -96,5 +101,24 @@ export class SocketService {
         })
 
 
+    }
+
+    /**
+     * 发送请求房间 信息
+     */
+    sendRequestRoomInfo(socketMessage: SocketMessage, io: Server) {
+        const { roomId, messageInfo } = socketMessage.data;
+
+        let roomInfo:SocketMessage = {
+            data:{
+                roomId:roomId,
+                messageInfo:messageInfo
+            },
+            type: "getRoomInfo"
+        }
+        // 获取房间内第一个用户的socket
+        const clientSocket = io.sockets.sockets.get(messageInfo.receiveSocketId);
+        if (clientSocket)
+            clientSocket.emit(SocketEvent.ROOM_INFO, roomInfo);
     }
 }
