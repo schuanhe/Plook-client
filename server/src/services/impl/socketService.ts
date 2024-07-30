@@ -2,7 +2,13 @@
 import type {Server, Socket} from "socket.io";
 
 import { roomService } from "./roomService";
-import {SocketEvent, SocketMessage, socketVideoInfoType} from "../../interfaces";
+import {
+    SocketEvent,
+    socketGetRoomInfoType,
+    SocketMessage,
+    socketMessageType,
+    socketVideoInfoType
+} from "../../interfaces";
 
 
 export class SocketService {
@@ -36,7 +42,7 @@ export class SocketService {
     }
 
     public getRoomInfo(message: SocketMessage, io: Server) {
-        const { roomId } = message.data;
+        const { roomId,sendDate } = message.data;
         if (!roomId) {
             console.log('房间号不能为空');
             this.socket.emit(SocketEvent.ERROR, '房间号不能为空');
@@ -63,10 +69,20 @@ export class SocketService {
                 clients.forEach((client) => {
                     if (client?.userSocketId && client?.userSocketId != this.socket.id) {
                         // 发送消息 到 客户端 请求
-                        io.to(client.userSocketId).emit(SocketEvent.ROOM_INFO, {
-                            mySocketId: this.socket.id,
-                            clients: clients
-                        });
+                        const data: socketGetRoomInfoType = {
+                            type: "getRoomInfo",
+                            data:{
+                                roomId: String(roomId),
+                                messageInfo: {
+                                    sendSocketId: this.socket.id,
+                                    sendDate: sendDate,
+                                    receiveSocketId: client.userSocketId,
+                                    receiveDate: 0
+                                }
+                            }
+
+                        };
+                        io.to(client.userSocketId).emit(SocketEvent.ROOM_INFO, data);
                     }
                 })
             }
@@ -79,6 +95,14 @@ export class SocketService {
         } else {
             console.log(`房间 ${roomId} 不存在`);
             this.socket.emit(SocketEvent.ERROR, `房间 ${roomId} 不存在`);
+        }
+    }
+
+
+    public setRoomInfo(socketMessage: socketVideoInfoType, io: Server){
+        const { roomId, messageInfo, video } = socketMessage.data;
+        if (this.checkMessageInfo(messageInfo, io)){
+            io.to(messageInfo.sendSocketId).emit(SocketEvent.ROOM_INFO, socketMessage);
         }
     }
 
@@ -124,22 +148,17 @@ export class SocketService {
 
     }
 
-    /**
-     * 发送请求房间 信息
-     */
-    sendRequestRoomInfo(socketMessage: SocketMessage, io: Server) {
-        const { roomId, messageInfo } = socketMessage.data;
 
-        let roomInfo:SocketMessage = {
-            data:{
-                roomId:roomId,
-                messageInfo:messageInfo
-            },
-            type: "getRoomInfo"
+    /**
+     * 消息信息校验
+     */
+    public checkMessageInfo(socketMessage: socketMessageType,io: Server) {
+        const { sendSocketId, receiveSocketId } = socketMessage;
+        if (sendSocketId == this.socket.id && io.sockets.sockets.has(receiveSocketId)){
+            return true;
+        }else if (receiveSocketId == this.socket.id && io.sockets.sockets.has(sendSocketId)){
+            return true;
         }
-        // 获取房间内第一个用户的socket
-        const clientSocket = io.sockets.sockets.get(messageInfo.receiveSocketId);
-        if (clientSocket)
-            clientSocket.emit(SocketEvent.ROOM_INFO, roomInfo);
+        return false;
     }
 }

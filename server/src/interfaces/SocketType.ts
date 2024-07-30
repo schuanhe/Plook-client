@@ -33,9 +33,16 @@ export interface SocketMessage {
     /**
      * 消息类型
      */
-    type: SocketEvent;
+    type: String;
     /**
      * 消息内容
      */
     data: any;
+}
+
+export interface socketMessageType {
+    sendSocketId: string;
+    sendDate: number;
+    receiveSocketId: string;
+    receiveDate?: number;
 }

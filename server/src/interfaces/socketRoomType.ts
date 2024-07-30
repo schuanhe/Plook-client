@@ -1,31 +1,19 @@
-import {SocketEvent, SocketMessage} from "./SocketType";
+import {SocketEvent, SocketMessage, socketMessageType} from "./SocketType";
 
 export interface socketGetRoomInfoType extends SocketMessage{
-    type: SocketEvent.ROOM_INFO
     data: {
-        roomId: number;
+        roomId: String;
         messageInfo: socketMessageType;
-    };
+    }
 }
 
 
-export interface socketMessageType {
-    sendSocketId: string;
-    sendDate: number;
-    receiveSocketId: string;
-    receiveDate?: number;
-}
-
-
-export interface socketVideoInfoType {
-    /**
-     * 房间id
-     */
-    roomId: number;
-    /**
-     * 视频信息
-     */
-    video: socketRoomVideoInfoType
+export interface socketVideoInfoType extends SocketMessage{
+    data: {
+        roomId: String;
+        messageInfo: socketMessageType;
+        video: socketRoomVideoInfoType
+    }
 }
 
 /**

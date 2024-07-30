@@ -3,7 +3,7 @@ import { Server } from 'http'
 import {JwtPayload} from 'jsonwebtoken';
 
 import {SocketService} from "./impl/socketService";
-import {SocketEvent, SocketMessage} from "../interfaces";
+import {SocketEvent, socketGetRoomInfoType, SocketMessage} from "../interfaces";
 
 
 
@@ -45,6 +45,8 @@ export default function (server: Server) {
                 socketService.leaveRoom(socketMessage);
             if (socketMessage.type === "getRoomInfo")
                 socketService.getRoomInfo(socketMessage, io);
+            if (socketMessage.type === "setRoomInfo")
+                socketService.setRoomInfo(socketMessage, io);
         })
 
         socket.on(SocketEvent.ROOM_DB_INFO, (socketMessage:SocketMessage) => {
