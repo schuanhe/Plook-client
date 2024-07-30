@@ -1,7 +1,8 @@
 
 import type {Server, Socket} from "socket.io";
-import { SocketEvent, SocketMessage} from "../socketHandler";
+
 import { roomService } from "./roomService";
+import {SocketEvent, SocketMessage, socketVideoInfoType} from "../../interfaces";
 
 
 export class SocketService {
@@ -19,11 +20,9 @@ export class SocketService {
         if (!roomId){
             console.log('房间号不能为空');
             this.socket.emit(SocketEvent.ERROR, '房间号不能为空');
-            return;
         }
         this.socket.join(String(roomId));
         this.socket.emit(SocketEvent.ROOM_INFO, '加入房间成功');
-        console.log(`${this.socket.id} 加入房间 ${roomId}`);
     }
 
     public leaveRoom(message: SocketMessage) {
@@ -31,7 +30,6 @@ export class SocketService {
         if (!roomId){
             console.log('房间号不能为空');
             this.socket.emit(SocketEvent.ERROR, '房间号不能为空');
-            return;
         }
         this.socket.leave(String(roomId));
         console.log(`${this.socket.id} 离开房间 ${roomId}`);
@@ -42,11 +40,15 @@ export class SocketService {
         if (!roomId) {
             console.log('房间号不能为空');
             this.socket.emit(SocketEvent.ERROR, '房间号不能为空');
-            return;
         }
-
         const roomSockets = io.sockets.adapter.rooms.get(String(roomId));
         if (roomSockets) {
+            // 判断用户是否在房间中
+            if (!roomSockets.has(this.socket.id)) {
+                console.log(`${this.socket.id} 未加入房间 ${roomId}`);
+                this.socket.emit(SocketEvent.ERROR, `未加入房间 ${roomId}`);
+                return;
+            }
             const clients = Array.from(roomSockets).map(socketId => {
                 const clientSocket = io.sockets.sockets.get(socketId);
                 if (!clientSocket) {
@@ -54,7 +56,26 @@ export class SocketService {
                 }
                 return { userSocketId:clientSocket.id, userData: clientSocket.data.userData };
             });
-            this.socket.emit(SocketEvent.ROOM_INFO, clients);
+
+            // 请求客户端返回房间的信息
+            let roomVideoInfo: socketVideoInfoType;
+            if (clients.length > 1){
+                clients.forEach((client) => {
+                    if (client?.userSocketId && client?.userSocketId != this.socket.id) {
+                        // 发送消息 到 客户端 请求
+                        io.to(client.userSocketId).emit(SocketEvent.ROOM_INFO, {
+                            mySocketId: this.socket.id,
+                            clients: clients
+                        });
+                    }
+                })
+            }
+
+
+            this.socket.emit(SocketEvent.ROOM_INFO, {
+                mySocketId: this.socket.id,
+                clients: clients
+            });
         } else {
             console.log(`房间 ${roomId} 不存在`);
             this.socket.emit(SocketEvent.ERROR, `房间 ${roomId} 不存在`);
