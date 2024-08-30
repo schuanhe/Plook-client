@@ -52,7 +52,7 @@ const msgList = roomStore.roomMsgList
 }
 
 .messageInput {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* 卡片阴影 */
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3); /* 内凹阴影 */
   border-radius: 5px; /* 卡片边框圆角 */
   width: 100%;
   height: 100%;

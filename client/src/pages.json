@@ -1,9 +1,9 @@
 {
   "pages": [
     {
-      "path": "pages/PlookRoom/PlookRoom",
+      "path": "pages/user/login",
       "style": {
-        "navigationBarTitleText": "房间",
+        "navigationBarTitleText": "登录",
         "enablePullDownRefresh": false
       }
     },

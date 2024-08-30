@@ -10,7 +10,7 @@
       <view class="video-container  ">
         <plook-video class=""/>
       </view>
-      <view class="video-card video-card-min uni-flex uni-column" >
+      <view class=" uni-flex uni-column" >
         <text class="flex-item">当前房间号: 123456789 \n</text>
         <text class="flex-item">666</text></view>
     </view>
@@ -186,6 +186,11 @@ const submit = () => {
 
 .video-card-min {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 卡片阴影 */
+  border-radius: 5px; /* 卡片边框圆角 */
+}
+
+.video-card-min-inset {
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3); /* 内凹阴影 */
   border-radius: 5px; /* 卡片边框圆角 */
 }
 

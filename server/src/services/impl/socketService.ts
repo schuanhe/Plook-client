@@ -117,11 +117,8 @@ export class SocketService {
 
         console.log(`${this.socket.data.userData.userId} 发送消息到房间 ${roomId}`)
         if (this.socket.rooms.has(String(roomId))) {
-            io.to(String(roomId)).emit(SocketEvent.ROOM_MESSAGE, {
-                userId: this.socket.data.userData.userId,
-                message: message,
-                user:user
-            });
+            socketMessage.data.user.id = this.socket.data.userData.userId;
+            io.to(String(roomId)).emit(SocketEvent.ROOM_MESSAGE, socketMessage);
         } else {
             console.log(`${this.socket.id} 未加入房间 ${roomId}`);
             this.socket.emit(SocketEvent.ERROR, `${this.socket.id} 未加入房间 ${roomId}`);
