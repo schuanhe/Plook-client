@@ -18,6 +18,12 @@
       "style": {
         "navigationBarTitleText": "uni-app"
       }
+    },{
+      "path": "pages/PlookRoom/PlookRoom",
+      "style": {
+        "navigationBarTitleText": "房间",
+        "enablePullDownRefresh": false
+      }
     }
   ],
   "globalStyle": {

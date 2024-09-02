@@ -3,13 +3,13 @@
     <huanhe-card title="登录">
       <uni-forms ref="validForm" :rules="rules" :modelValue="form">
         <uni-forms-item label="用户名">
-          <uni-easyinput v-model="form.name" placeholder="请输入用户名" ></uni-easyinput>
+          <uni-easyinput v-model="form.username" placeholder="请输入用户名" ></uni-easyinput>
         </uni-forms-item>
         <uni-forms-item label="密码">
           <uni-easyinput v-model="form.password" placeholder="请输入密码"></uni-easyinput>
         </uni-forms-item>
       </uni-forms>
-      <button size="mini" @click="login" type="primary">登录</button>
+      <button size="mini" @click="loginFun" type="primary">登录</button>
     </huanhe-card>
   </view>
 </template>
@@ -18,15 +18,13 @@ import HuanheCard from "../../components/SchuanheComponent/HuanheCard.vue";
 import UniForms from "../../uni_modules/uni-forms/components/uni-forms/uni-forms.vue";
 import UniFormsItem from "../../uni_modules/uni-forms/components/uni-forms-item/uni-forms-item.vue";
 import UniEasyinput from "../../uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.vue";
-import { useRoomStore } from "../../store/room";
-
-const roomStore = useRoomStore()
+import { login } from "../../api/user";
 const form = {
-  name: '',
+  username: '',
   password: ''
 }
 const rules = {
-  name: {
+  username: {
     required: true,
     message: '请输入用户名',
     trigger: ['change', 'blur']
@@ -38,12 +36,23 @@ const rules = {
   }
 }
 
-// 登录逻辑
-const login = () => {
-  console.log("登录");
+const loginFun = () => {
+  login(form).then(res => {
+    if(res.data.code === 200) {
+      uni.setStorageSync('token', res.data.token)
+      uni.setStorageSync('user', res.data.user)
+      uni.navigateTo({
+        url: '/pages/PlookRoom/PlookRoom'
+      })
+    } else {
+      console.log(res.code)
+      uni.showToast({
+        title: res.data.message,
+        icon: 'none'
+      })
+    }
+  })
 }
-
-
 
 </script>
 <style scoped>
