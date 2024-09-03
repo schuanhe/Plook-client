@@ -1,5 +1,4 @@
-// api/user.js
-import config from '../config'; // 确保路径正确
+import {request} from "./request";
 
 /**
  * 登录函数
@@ -12,8 +11,8 @@ import config from '../config'; // 确保路径正确
  *                   通过这个Promise，可以处理登录成功或失败的情况
  */
 export function login(data) {
-    return uni.request({
-        url: `${config.baseUrl}/api/users/login`,
+    return request({
+        url: `login`,
         method: 'POST',
         data: data
     });
@@ -21,8 +20,7 @@ export function login(data) {
 
 
 export function getUserInfo() {
-    return uni.request({
-        url: `${config.baseUrl}/api/user/info`,
-        method: 'GET'
+    return request({
+        url: `user/info`,
     });
 }

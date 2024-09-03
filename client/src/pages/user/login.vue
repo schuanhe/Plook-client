@@ -18,7 +18,10 @@ import HuanheCard from "../../components/SchuanheComponent/HuanheCard.vue";
 import UniForms from "../../uni_modules/uni-forms/components/uni-forms/uni-forms.vue";
 import UniFormsItem from "../../uni_modules/uni-forms/components/uni-forms-item/uni-forms-item.vue";
 import UniEasyinput from "../../uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.vue";
+import { useUserStore } from "../../store/user";
 import { login } from "../../api/user";
+
+const useUserStoreA = useUserStore()
 const form = {
   username: '',
   password: ''
@@ -39,8 +42,8 @@ const rules = {
 const loginFun = () => {
   login(form).then(res => {
     if(res.data.code === 200) {
-      uni.setStorageSync('token', res.data.token)
-      uni.setStorageSync('user', res.data.user)
+      useUserStoreA.setToken(res.data.token)
+      useUserStoreA.setUser(res.data.user)
       uni.navigateTo({
         url: '/pages/PlookRoom/PlookRoom'
       })
